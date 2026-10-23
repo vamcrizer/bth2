@@ -49,7 +49,7 @@ Tiêu chí đánh giá dựa trên tốc độ và thời gian hoàn thành (cà
 
 | STT | Thành viên | Vai trò / Module phụ trách | Chi tiết công việc & Deliverables |
 |:---:|---|---|---|
-| **1** | **Nguyễn Trung Nam** *(Lead)* | **Database, Domain Rules & Integration Core** | • Thiết kế và duy trì schema SQLite 4 bảng, khóa ngoại, ràng buộc dữ liệu và migration theo phiên bản.<br>• Cung cấp `DatabaseHelper`, seed data, repository/API dùng chung cho Account, Fruit, Customer, Order.<br>• Xây dựng quy tắc domain lõi: validate dữ liệu, trạng thái đơn hợp lệ, transaction cho thao tác nhiều bước và kiểm tra tồn kho/hạn dùng khi đặt hàng.<br>• Cung cấp hợp đồng tích hợp (model, tên hàm, tham số/trả về) cho các module; hỗ trợ xử lý xung đột schema/API giữa các nhánh.<br>• Tích hợp các module, chạy build/kiểm tra hồi quy, quản lý nhánh/PR và cập nhật hướng dẫn chạy dự án. |
+| **1** | **Nguyễn Trung Nam** *(Lead)* | **Database, Domain Rules, Tester & Integration Core** | • Thiết kế và duy trì schema SQLite 4 bảng, khóa ngoại, ràng buộc dữ liệu và migration theo phiên bản.<br>• Cung cấp `DatabaseHelper`, seed data, repository/API dùng chung cho Account, Fruit, Customer, Order.<br>• Xây dựng quy tắc domain lõi: validate dữ liệu, trạng thái đơn hợp lệ, transaction cho thao tác nhiều bước và kiểm tra tồn kho/hạn dùng khi đặt hàng.<br>• **Tester BE:** viết/chạy kiểm thử schema, seed, CRUD, khóa ngoại, transaction, validation và các luồng lỗi; kiểm tra tương thích giữa repository với module nghiệp vụ.<br>• **Tester FE & tích hợp:** smoke test màn hình/điều hướng, kiểm tra dữ liệu hiển thị khớp database, test các luồng Admin/Customer trên emulator hoặc máy thật; ghi nhận và tái kiểm tra lỗi sau sửa.<br>• Cung cấp hợp đồng tích hợp (model, tên hàm, tham số/trả về) cho các module; hỗ trợ xử lý xung đột schema/API giữa các nhánh.<br>• Tích hợp các module, chạy build/kiểm tra hồi quy, quản lý nhánh/PR và cập nhật hướng dẫn chạy dự án. |
 | **2** | **Lê Duy Anh** | **Auth & Session Management** | • Xây dựng UI/UX màn hình Đăng nhập (Login), Đăng ký (Register), Đăng xuất (Logout).<br>• Xử lý xác thực tài khoản cho 2 vai trò: `Admin` và `Customer`.<br>• Lưu trữ thông tin tài khoản đăng nhập và phiên làm việc bằng `SharedPreferences`.<br>• Điều hướng phân quyền (Role-based Navigation / Routing) chuyển đúng màn hình tương ứng với từng vai trò. |
 | **3** | **Phan Nguyễn Việt Dũng** | **Admin: Fruit & Expiry Management** | • Xây dựng UI/UX giao diện Admin: Danh sách trái cây, form Thêm/Sửa/Xóa (CRUD).<br>• Triển khai các tính năng CRUD trái cây: Tên, danh mục, giá, số lượng, hạn sử dụng, mô tả.<br>• Chức năng tìm kiếm và lọc danh sách trái cây cho Admin.<br>• **Quản lý hạn sử dụng (Expiry Date Management)**: Hiển thị trực quan hạn sử dụng, tự động đánh dấu và cảnh báo trái cây đã hết hạn (badge cảnh báo/màu sắc nổi bật). |
 | **4** | **Vũ Hoàng Anh** | **Customer: Browse & Place Order** | • Xây dựng UI/UX cho Khách hàng: Màn hình danh sách trái cây còn hạn, xem chi tiết trái cây.<br>• Chức năng tìm kiếm, lọc trái cây theo danh mục, kiểm tra thông tin và hạn sử dụng.<br>• **Nghiệp vụ chặn mua hàng hết hạn**: Khóa nút đặt hàng / không cho phép khách hàng đặt các mặt hàng đã quá hạn sử dụng hoặc hết số lượng (`quantity = 0`).<br>• Chức năng chọn mua, chọn số lượng và tiến hành Đặt hàng (`Place Order`). |
@@ -139,3 +139,21 @@ val orderId = orders.placeOrder(
 Đăng nhập, đăng ký Customer, đăng xuất, lưu phiên SharedPreferences và điều hướng Admin/Customer nằm trong package `com.cie.bth2.auth`. Xem [hướng dẫn tích hợp và kiểm thử](docs/AUTH.md).
 
 Tài khoản mẫu: `admin / admin123` và `customer / customer123`.
+### Checklist kiểm thử của nhóm trưởng
+
+- **BE / database:** schema và seed data; CRUD repository; khóa ngoại/ràng buộc; tạo đơn thành công; chặn mặt hàng hết hạn/hết kho; rollback nếu một mặt hàng trong đơn lỗi; chuyển trạng thái đơn đúng thứ tự.
+- **FE:** mở màn hình, điều hướng và hiển thị trạng thái rỗng/lỗi/dữ liệu; kiểm tra luồng Admin và Customer trên emulator/máy thật.
+- **Tích hợp:** đối chiếu dữ liệu UI với database sau thao tác; build lại sau khi merge; chạy lại các luồng bị ảnh hưởng và ghi rõ thiết bị/kết quả trong PR.
+- Instrumented tests nằm tại `app/src/androidTest`; chạy bằng `./gradlew connectedDebugAndroidTest` khi đã kết nối emulator hoặc thiết bị Android.
+
+
+## Chạy ứng dụng sau tích hợp
+
+- Mở ứng dụng → Login; Admin (`admin/admin123`) mở quản lý trái cây, đơn hàng và Showcase CSDL.
+- Customer (`customer/customer123`) mở mua sắm, hồ sơ và lịch sử đơn; Account.id được tra sang Customer.id qua database chung.
+- Tất cả module nghiệp vụ dùng `fruit_shop.db`. Showcase dùng `fruit_shop_showcase.db` riêng, có thể DROP/Reset dữ liệu mẫu.
+- Handoff: [Auth](docs/AUTH.md), [Admin](ADMIN_FRUIT.md), [Customer shopping](HANDOFF_customer-shopping.md). Order/Profile dùng repository core và được nối từ trang theo vai trò.
+- Build và unit test: `./gradlew :app:assembleDebug :app:testDebugUnitTest`.
+- Kiểm thử Android trên emulator/máy thật: `./gradlew :app:connectedDebugAndroidTest`.
+
+Kết quả kiểm tra sau merge (23/10/2026): build debug thành công; 16 unit test đạt; 22/22 instrumented test đạt trên Pixel 9 Pro emulator, Android 15. Bộ test bao phủ database/repository, quy tắc nghiệp vụ, auth/session/navigation và smoke test showcase; chưa thay thế kiểm tra thủ công toàn bộ giao diện.

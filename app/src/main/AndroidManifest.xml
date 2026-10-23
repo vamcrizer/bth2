@@ -38,6 +38,7 @@
         <activity
             android:name=".ui.profile.CustomerProfileActivity"
             android:exported="false" />
+        <activity android:name=".demo.DatabaseDemoActivity" android:exported="false" />
     </application>
 
 </manifest>

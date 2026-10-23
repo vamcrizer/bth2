@@ -46,7 +46,7 @@ class OrderRepository(private val databaseHelper: DatabaseHelper) {
 
     /**
      * Validates and reserves all requested fruit, then creates the order atomically.
-     * The caller supplies the order total from the selected fruit prices.
+     * The total is calculated from the stored fruit prices.
      */
     fun placeOrder(
         customerId: Long,
@@ -92,14 +92,15 @@ class OrderRepository(private val databaseHelper: DatabaseHelper) {
             }
 
             quantities.forEach { (fruitId, quantity) ->
-                val updated = db.update(
-                    DatabaseHelper.TABLE_FRUIT,
-                    ContentValues().apply {
-                        put(DatabaseHelper.COL_QUANTITY, "${DatabaseHelper.COL_QUANTITY} - $quantity")
-                    },
-                    "${DatabaseHelper.COL_ID} = ? AND ${DatabaseHelper.COL_QUANTITY} >= ?",
-                    arrayOf(fruitId.toString(), quantity.toString())
+                val statement = db.compileStatement(
+                    "UPDATE ${DatabaseHelper.TABLE_FRUIT} " +
+                        "SET ${DatabaseHelper.COL_QUANTITY} = ${DatabaseHelper.COL_QUANTITY} - ? " +
+                        "WHERE ${DatabaseHelper.COL_ID} = ? AND ${DatabaseHelper.COL_QUANTITY} >= ?"
                 )
+                statement.bindLong(1, quantity.toLong())
+                statement.bindLong(2, fruitId)
+                statement.bindLong(3, quantity.toLong())
+                val updated = statement.use { it.executeUpdateDelete() }
                 if (updated != 1) throw IllegalStateException("Stock changed while placing the order")
             }
 

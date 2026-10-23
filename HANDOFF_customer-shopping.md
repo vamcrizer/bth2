@@ -1,5 +1,10 @@
 # HANDOFF — Module 4: Customer Browse & Place Order
 
+## Trạng thái sau tích hợp vào main
+
+Đã bỏ FruitShopDbHelper placeholder. CustomerShopRepository dùng DatabaseHelper, FruitRepository và OrderRepository.placeOrder chung. CustomerSession lấy Account từ auth_session rồi tra Customer.id; không còn fallback id=1. Login là launcher, mở mua sắm/lịch sử/hồ sơ từ trang Customer. Tài khoản mẫu hiện tại: customer/customer123. Các mục placeholder/session bên dưới lưu lại handoff gốc trước tích hợp.
+
+
 - **Owner**: Vũ Hoàng Anh (VHA)
 - **Branch**: `feature/customer-shopping`
 - **Trạng thái**: DONE — build xanh, unit test xanh. Chờ Lead review + merge.

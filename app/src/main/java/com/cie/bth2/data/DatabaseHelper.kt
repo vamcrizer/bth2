@@ -6,8 +6,8 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 /** Creates and seeds the local Fruit Shop database. */
-class DatabaseHelper(context: Context) :
-    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DatabaseHelper(context: Context, databaseName: String = DATABASE_NAME) :
+    SQLiteOpenHelper(context.applicationContext ?: context, databaseName, null, DATABASE_VERSION) {
 
     override fun onConfigure(db: SQLiteDatabase) {
         super.onConfigure(db)
@@ -60,6 +60,69 @@ class DatabaseHelper(context: Context) :
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // Add explicit, data-preserving migrations here when the schema changes.
+    }
+
+    /** Drops one known application table. Used by the database showcase screen. */
+    fun dropTable(table: String) {
+        require(table in DEMO_TABLES) { "Unsupported table" }
+        writableDatabase.execSQL("DROP TABLE IF EXISTS $table")
+    }
+
+    /** Recreates the local demo database and restores its sample rows. */
+    fun resetDemoDatabase() {
+        val db = writableDatabase
+        db.beginTransaction()
+        try {
+            // Drop dependents first so foreign-key constraints remain enabled.
+            listOf(TABLE_ORDER, TABLE_CUSTOMER, TABLE_FRUIT, TABLE_ACCOUNT).forEach { table -> db.execSQL("DROP TABLE IF EXISTS $table") }
+            onCreate(db)
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+        }
+    }
+
+    fun createSqlFor(table: String): String {
+        require(table in DEMO_TABLES) { "Unsupported table" }
+        return when (table) {
+            TABLE_ACCOUNT -> """CREATE TABLE Account (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    role TEXT NOT NULL CHECK (role IN ('Admin', 'Customer'))
+)"""
+            TABLE_FRUIT -> """CREATE TABLE Fruit (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    category TEXT NOT NULL,
+    price REAL NOT NULL CHECK (price >= 0),
+    quantity INTEGER NOT NULL DEFAULT 0 CHECK (quantity >= 0),
+    expiryDate TEXT NOT NULL,
+    description TEXT NOT NULL DEFAULT ''
+)"""
+            TABLE_CUSTOMER -> """CREATE TABLE Customer (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT NOT NULL,
+    phone TEXT NOT NULL DEFAULT '',
+    email TEXT NOT NULL DEFAULT '',
+    accountId INTEGER NOT NULL UNIQUE,
+    FOREIGN KEY (accountId) REFERENCES Account(id) ON DELETE CASCADE
+)"""
+            else -> """CREATE TABLE "Order" (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    customerId INTEGER NOT NULL,
+    orderDate TEXT NOT NULL,
+    totalAmount REAL NOT NULL CHECK (totalAmount >= 0),
+    status TEXT NOT NULL DEFAULT 'Pending'
+        CHECK (status IN ('Pending', 'Confirmed', 'Completed')),
+    FOREIGN KEY (customerId) REFERENCES Customer(id) ON DELETE CASCADE
+)"""
+        }
+    }
+
+    fun dropSqlFor(table: String): String {
+        require(table in DEMO_TABLES) { "Unsupported table" }
+        return "DROP TABLE IF EXISTS $table"
     }
 
     private fun insertSeedData(db: SQLiteDatabase) {
@@ -139,5 +202,7 @@ class DatabaseHelper(context: Context) :
         const val STATUS_PENDING = "Pending"
         const val STATUS_CONFIRMED = "Confirmed"
         const val STATUS_COMPLETED = "Completed"
+
+        val DEMO_TABLES = listOf(TABLE_ACCOUNT, TABLE_FRUIT, TABLE_CUSTOMER, TABLE_ORDER)
     }
 }

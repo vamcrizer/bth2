@@ -27,7 +27,7 @@ class FruitRepository(private val databaseHelper: DatabaseHelper) {
         val clauses = mutableListOf<String>()
         val args = mutableListOf<String>()
         if (query.isNotBlank()) {
-            clauses += "${DatabaseHelper.COL_NAME} LIKE ? OR ${DatabaseHelper.COL_DESCRIPTION} LIKE ?"
+            clauses += "(${DatabaseHelper.COL_NAME} LIKE ? OR ${DatabaseHelper.COL_DESCRIPTION} LIKE ?)"
             args += "%${query.trim()}%"
             args += "%${query.trim()}%"
         }

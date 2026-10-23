@@ -1,5 +1,10 @@
 # Module Admin — Phan Nguyễn Việt Dũng
 
+## Trạng thái sau tích hợp vào main
+
+Admin đã dùng adapter SqliteFruitRepository qua DatabaseHelper/FruitRepository chung, file fruit_shop.db. Login là launcher; mở quản lý trái cây từ trang Admin. Hai lỗi biên dịch giao diện đã được sửa trong merge. Mô tả database admin_fruit.db bên dưới là handoff trước tích hợp.
+
+
 Đã triển khai trong package `com.cie.bth2.admin.fruit`, nhánh `feature/admin-fruit-crud`.
 
 ## Chức năng

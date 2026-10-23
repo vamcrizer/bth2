@@ -69,6 +69,11 @@ abstract class RoleHomeActivity : AuthActivity() {
             setOnClickListener { startActivity(AdminOrderManagementActivity.newIntent(this@RoleHomeActivity)) }
         }
 
+        findViewById<View>(R.id.open_database_demo).apply {
+            visibility = if (isAdmin) View.VISIBLE else View.GONE
+            setOnClickListener { startActivity(Intent(this@RoleHomeActivity, com.cie.bth2.demo.DatabaseDemoActivity::class.java)) }
+        }
+
         val customer = if (isAdmin) null else DatabaseHelper(this).use {
             CustomerRepository(it).getByAccountId(account.id)
         }

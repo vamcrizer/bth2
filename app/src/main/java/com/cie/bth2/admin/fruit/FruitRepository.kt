@@ -11,8 +11,11 @@ interface FruitRepository {
     fun close()
 }
 
-class SqliteFruitRepository(context: Context) : FruitRepository {
-    private val helper = DatabaseHelper(context.applicationContext)
+class SqliteFruitRepository(
+    context: Context,
+    databaseName: String = DatabaseHelper.DATABASE_NAME
+) : FruitRepository {
+    private val helper = DatabaseHelper(context.applicationContext ?: context, databaseName)
     private val repository = com.cie.bth2.data.FruitRepository(helper)
 
     override fun all(): List<Fruit> = repository.getAll().map { it.toAdminFruit() }
