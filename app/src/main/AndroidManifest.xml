@@ -10,6 +10,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Bth2" />
+        android:theme="@style/Theme.Bth2">
+        <!-- Standalone entry point until the team's authentication module is integrated. -->
+        <activity android:name=".admin.fruit.AdminFruitActivity" android:exported="true"
+            android:theme="@style/Theme.Bth2.Admin" android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
 </manifest>

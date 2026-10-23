@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="admin_background">#F4F7F2</color>
+    <color name="admin_surface">#FFFFFF</color>
+    <color name="admin_ink">#193B2B</color>
+    <color name="admin_muted">#63736A</color>
+    <color name="admin_border">#DFE7DF</color>
+    <color name="admin_primary">#246B45</color>
+    <color name="admin_soft">#E6F1E8</color>
+    <color name="admin_error">#B32635</color>
+    <style name="Theme.Bth2.Admin" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/admin_primary</item>
+        <item name="colorPrimaryVariant">@color/admin_ink</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">@color/admin_primary</item>
+        <item name="android:windowBackground">@color/admin_background</item>
+        <item name="android:statusBarColor">@color/admin_background</item>
+        <item name="android:navigationBarColor">@color/admin_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fontFamily">sans</item>
+    </style>
+</resources>

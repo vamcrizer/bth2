@@ -47,6 +47,8 @@ Tiêu chí đánh giá dựa trên tốc độ và thời gian hoàn thành (cà
 
 ## 🛠️ Công nghệ sử dụng
 
+Phần **Admin: Fruit & Expiry Management** của Phan Nguyễn Việt Dũng được triển khai tại `app/src/main/java/com/cie/bth2/admin/fruit`. Xem [hướng dẫn chạy và tích hợp module](ADMIN_FRUIT.md) để ghép với database và đăng nhập của nhóm.
+
 - **Ngôn ngữ**: Kotlin / Java
 - **Nền tảng**: Android SDK (Android Studio)
 - **Kiến trúc**: MVVM / MVP
