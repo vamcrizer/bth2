@@ -54,8 +54,13 @@ abstract class RoleHomeActivity : AuthActivity() {
 
     override fun onError(duplicateUsername: Boolean) {
         super.onError(duplicateUsername)
-        findViewById<View>(R.id.submit).isEnabled = false
-        // Fail closed; the user can reopen the screen to retry a database failure.
+        // Keep module entry points hidden if session verification fails, but allow logout.
+        listOf(R.id.open_admin_fruit, R.id.open_admin_orders,
+            R.id.open_customer_shop, R.id.open_customer_profile, R.id.open_customer_orders
+        ).forEach { findViewById<View>(it).visibility = View.GONE }
+        findViewById<TextView>(R.id.role_description).setText(R.string.auth_error)
+        findViewById<View>(R.id.home_content).visibility = View.VISIBLE
+        findViewById<View>(R.id.submit).isEnabled = true
     }
 
     private fun configureModuleNavigation(account: Account) {
