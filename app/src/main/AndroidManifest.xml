@@ -20,6 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".admin.fruit.AdminFruitActivity" android:exported="false"
+            android:theme="@style/Theme.Bth2.Admin" android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
