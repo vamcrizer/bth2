@@ -1,0 +1,6 @@
+<resources>
+    <style name="Theme.Bth2.WithToolbar" parent="Theme.Bth2">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>
