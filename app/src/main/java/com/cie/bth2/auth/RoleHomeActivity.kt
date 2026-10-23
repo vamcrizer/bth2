@@ -3,10 +3,17 @@ package com.cie.bth2.auth
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import com.cie.bth2.R
 import com.cie.bth2.data.AccountRepository.Account
+import com.cie.bth2.data.CustomerRepository
 import com.cie.bth2.data.DatabaseHelper
+import com.cie.bth2.admin.fruit.AdminFruitActivity
+import com.cie.bth2.customer.CustomerFruitListActivity
+import com.cie.bth2.ui.order.AdminOrderManagementActivity
+import com.cie.bth2.ui.order.CustomerOrderHistoryActivity
+import com.cie.bth2.ui.profile.CustomerProfileActivity
 
 /** Integration point: keep this guard when adding each team's role-specific screens. */
 abstract class RoleHomeActivity : AuthActivity() {
@@ -39,6 +46,7 @@ abstract class RoleHomeActivity : AuthActivity() {
                 findViewById<TextView>(R.id.welcome).text = getString(R.string.welcome, account.username)
                 findViewById<TextView>(R.id.role_description).setText(
                     if (requiredRole == DatabaseHelper.ROLE_ADMIN) R.string.admin_description else R.string.customer_description)
+                configureModuleNavigation(account)
                 findViewById<View>(R.id.home_content).visibility = View.VISIBLE
             }
         }
@@ -48,6 +56,38 @@ abstract class RoleHomeActivity : AuthActivity() {
         super.onError(duplicateUsername)
         findViewById<View>(R.id.submit).isEnabled = false
         // Fail closed; the user can reopen the screen to retry a database failure.
+    }
+
+    private fun configureModuleNavigation(account: Account) {
+        val isAdmin = account.role == DatabaseHelper.ROLE_ADMIN
+        findViewById<View>(R.id.open_admin_fruit).apply {
+            visibility = if (isAdmin) View.VISIBLE else View.GONE
+            setOnClickListener { startActivity(Intent(this@RoleHomeActivity, AdminFruitActivity::class.java)) }
+        }
+        findViewById<View>(R.id.open_admin_orders).apply {
+            visibility = if (isAdmin) View.VISIBLE else View.GONE
+            setOnClickListener { startActivity(AdminOrderManagementActivity.newIntent(this@RoleHomeActivity)) }
+        }
+
+        val customer = if (isAdmin) null else DatabaseHelper(this).use {
+            CustomerRepository(it).getByAccountId(account.id)
+        }
+        findViewById<View>(R.id.open_customer_shop).apply {
+            visibility = if (customer != null) View.VISIBLE else View.GONE
+            setOnClickListener { startActivity(Intent(this@RoleHomeActivity, CustomerFruitListActivity::class.java)) }
+        }
+        findViewById<View>(R.id.open_customer_profile).apply {
+            visibility = if (customer != null) View.VISIBLE else View.GONE
+            setOnClickListener {
+                customer?.let { startActivity(CustomerProfileActivity.newIntent(this@RoleHomeActivity, it.id)) }
+            }
+        }
+        findViewById<View>(R.id.open_customer_orders).apply {
+            visibility = if (customer != null) View.VISIBLE else View.GONE
+            setOnClickListener {
+                customer?.let { startActivity(CustomerOrderHistoryActivity.newIntent(this@RoleHomeActivity, it.id)) }
+            }
+        }
     }
 }
 

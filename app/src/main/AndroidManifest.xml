@@ -29,6 +29,15 @@
             android:name=".customer.CustomerFruitDetailActivity"
             android:exported="false"
             android:parentActivityName=".customer.CustomerFruitListActivity" />
+        <activity
+            android:name=".ui.order.CustomerOrderHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.order.AdminOrderManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.CustomerProfileActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

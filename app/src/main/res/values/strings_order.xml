@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Order status -->
+    <string name="order_status_pending">Chờ xác nhận</string>
+    <string name="order_status_confirmed">Đã xác nhận</string>
+    <string name="order_status_completed">Hoàn thành</string>
+
+    <!-- Order item -->
+    <string name="order_item_title">Đơn hàng #%1$d</string>
+    <string name="order_item_customer">Khách hàng: %1$s</string>
+    <string name="order_item_date">Ngày đặt: %1$s</string>
+    <string name="order_item_total">Tổng tiền: %1$s</string>
+    <string name="order_advance_to">Chuyển sang: %1$s</string>
+    <string name="order_advance_done">Đơn #%1$d → %2$s</string>
+    <string name="order_advance_failed">Không thể cập nhật trạng thái đơn hàng</string>
+
+    <!-- Customer order history -->
+    <string name="order_history_title">Lịch sử đơn hàng</string>
+    <string name="order_history_empty">Bạn chưa có đơn hàng nào</string>
+    <string name="customer_not_found">Không tìm thấy thông tin khách hàng</string>
+
+    <!-- Admin order management -->
+    <string name="admin_orders_title">Quản lý đơn hàng</string>
+    <string name="admin_orders_empty">Không có đơn hàng</string>
+    <string name="admin_orders_stat_total">Tổng đơn</string>
+    <string name="admin_orders_revenue">Doanh thu (đơn hoàn thành): %1$s</string>
+    <string name="admin_orders_filter_all">Tất cả</string>
+
+    <!-- Customer profile -->
+    <string name="profile_title">Thông tin cá nhân</string>
+    <string name="profile_username">Tài khoản: %1$s</string>
+    <string name="profile_full_name">Họ và tên</string>
+    <string name="profile_phone">Số điện thoại</string>
+    <string name="profile_email">Email</string>
+    <string name="profile_save">Lưu thông tin</string>
+    <string name="profile_view_orders">Xem lịch sử đơn hàng</string>
+    <string name="profile_saved">Đã lưu thông tin</string>
+    <string name="profile_save_failed">Lưu thông tin thất bại</string>
+    <string name="profile_error_full_name">Vui lòng nhập họ tên</string>
+    <string name="profile_error_phone">Số điện thoại không hợp lệ</string>
+    <string name="profile_error_email">Email không hợp lệ</string>
+</resources>

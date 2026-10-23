@@ -28,4 +28,9 @@
     <string name="logout">Đăng xuất</string>
     <string name="logout_confirm">Bạn muốn kết thúc phiên đăng nhập này?</string>
     <string name="cancel">Hủy</string>
+    <string name="open_admin_fruit">Quản lý trái cây</string>
+    <string name="open_admin_orders">Quản lý đơn hàng</string>
+    <string name="open_customer_shop">Mua sắm trái cây</string>
+    <string name="open_customer_profile">Hồ sơ khách hàng</string>
+    <string name="open_customer_orders">Lịch sử đơn hàng</string>
 </resources>
