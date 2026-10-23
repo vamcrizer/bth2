@@ -7,7 +7,7 @@
 
 - **Owner**: Vũ Hoàng Anh (VHA)
 - **Branch**: `feature/customer-shopping`
-- **Trạng thái**: DONE — build xanh, unit test xanh. Chờ Lead review + merge.
+- **Trạng thái**: DONE — `assembleDebug` BUILD SUCCESSFUL, `OrderRulesTest` 8/8 pass. Chờ Lead review + merge.
 
 ## Đã làm (đối chiếu README mục 4)
 
@@ -72,6 +72,8 @@ app/src/test/java/com/cie/bth2/customer/OrderRulesTest.kt
 ```bash
 ./gradlew assembleDebug testDebugUnitTest
 ```
+- **Dùng JDK 17/21.** JBR đi kèm Android Studio bản mới là JDK 25 → Gradle 8.13 fail với message rỗng. CLI: `JAVA_HOME=<jdk21> ./gradlew ...`; Android Studio: Settings → Gradle → Gradle JDK = 21.
+- Lần build đầu tải Gradle 8.13 + AGP 8.13.2 (~9 phút); sau đó build offline nhanh.
 - `OrderRulesTest`: hết hạn hôm qua / còn hạn đúng ngày hết hạn / chặn hết hạn / chặn hết hàng / chặn số lượng ≤ 0 / chặn vượt kho / cho phép mua đúng bằng tồn kho.
 - Thủ công: mở app → "Cam Úc" không hiện (hết hạn) → tick "Hiển thị cả hàng đã hết hạn" → mở Cam Úc → nút Đặt hàng bị khoá. Mở "Táo Fuji" → khoá (hết hàng). Mở "Táo Envy" → tăng số lượng → Đặt hàng → dialog mã đơn, quay lại thấy tồn kho giảm.
 
