@@ -10,6 +10,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Bth2" />
+        android:theme="@style/Theme.Bth2">
+
+        <!-- Customer Shopping (feature/customer-shopping). LAUNCHER tạm thời: khi Auth merge, chuyển LAUNCHER sang màn Login. -->
+        <activity
+            android:name=".customer.CustomerFruitListActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".customer.CustomerFruitDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".customer.CustomerFruitListActivity" />
+    </application>
 
 </manifest>

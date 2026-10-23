@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Resource của module Customer Shopping (prefix cs_ để tránh đụng module khác). -->
+<resources>
+    <item name="chipAll" type="id" />
+    <color name="cs_badge_bg">#D32F2F</color>
+    <color name="cs_price">#2E7D32</color>
+
+    <string name="cs_title_list">Cửa hàng trái cây</string>
+    <string name="cs_search_hint">Tìm theo tên trái cây</string>
+    <string name="cs_all">Tất cả</string>
+    <string name="cs_show_expired">Hiển thị cả hàng đã hết hạn</string>
+    <string name="cs_empty">Không có trái cây phù hợp</string>
+    <string name="cs_stock_expiry">Còn %1$d · HSD %2$s</string>
+    <string name="cs_badge_expired">HẾT HẠN</string>
+    <string name="cs_badge_out_of_stock">HẾT HÀNG</string>
+    <string name="cs_stock">Số lượng còn: %1$d</string>
+    <string name="cs_expiry">Hạn sử dụng: %1$s</string>
+    <string name="cs_total">Tổng tiền: %1$s</string>
+    <string name="cs_place_order">Đặt hàng</string>
+    <string name="cs_blocked_expired">Sản phẩm đã quá hạn sử dụng, không thể đặt hàng.</string>
+    <string name="cs_blocked_out_of_stock">Sản phẩm đã hết hàng, không thể đặt hàng.</string>
+    <string name="cs_not_enough_stock">Số lượng đặt vượt quá tồn kho.</string>
+    <string name="cs_not_found">Không tìm thấy sản phẩm</string>
+    <string name="cs_order_success_title">Đặt hàng thành công</string>
+    <string name="cs_order_success_msg">Mã đơn #%1$d\nTổng tiền: %2$s\nTrạng thái: Pending</string>
+</resources>
