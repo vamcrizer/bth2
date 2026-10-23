@@ -1,11 +1,6 @@
 package com.cie.bth2
 
 import android.content.ContentValues
-import android.content.Intent
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cie.bth2.data.AccountRepository
@@ -13,10 +8,8 @@ import com.cie.bth2.data.CustomerRepository
 import com.cie.bth2.data.DatabaseHelper
 import com.cie.bth2.data.FruitRepository
 import com.cie.bth2.data.OrderRepository
-import com.cie.bth2.demo.DatabaseDemoActivity
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertThrows
@@ -152,33 +145,6 @@ class DatabaseRepositoryInstrumentedTest {
             )
         }
         assertEquals(4, fruits.getById(id)!!.quantity)
-    }
-
-    @Test
-    fun showcaseScreenOpensAndDisplaysDatabaseDemo() {
-        val intent = Intent(context, DatabaseDemoActivity::class.java)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        val activity = InstrumentationRegistry.getInstrumentation().startActivitySync(intent)
-        try {
-            assertTrue(activity is DatabaseDemoActivity)
-            onView(withText("DATABASE SHOWCASE")).check(matches(isDisplayed()))
-            onView(withText("Xem bảng")).check(matches(isDisplayed()))
-        } finally {
-            activity.finish()
-            InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-        }
-    }
-
-    @Test
-    fun droppingAndResettingDemoTableRestoresSchemaAndSeedRows() {
-        database.dropTable(DatabaseHelper.TABLE_FRUIT)
-        val dropped = database.readableDatabase.rawQuery(
-            "SELECT name FROM sqlite_master WHERE type='table' AND name='Fruit'", null
-        ).use { it.moveToFirst() }
-        assertFalse(dropped)
-
-        database.resetDemoDatabase()
-        assertEquals(3, FruitRepository(database).getAll().size)
     }
 
     @Test

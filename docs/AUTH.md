@@ -2,7 +2,7 @@
 
 ## Trạng thái sau tích hợp vào main
 
-RoleHomeActivity hiện có nút mở module Admin (kho, đơn hàng, showcase) và Customer (mua sắm, hồ sơ, lịch sử). Các module cùng dùng fruit_shop.db; phiên lưu tại auth_session. Showcase dùng file fruit_shop_showcase.db riêng.
+RoleHomeActivity hiện có nút mở module Admin (kho, đơn hàng) và Customer (mua sắm, hồ sơ, lịch sử). Các module cùng dùng fruit_shop.db; phiên lưu tại auth_session.
 
 
 Branch: `feature/auth-sharedpref`. Module dùng Kotlin, XML, MVP và SQLite core của nhánh `feature/database-core` (commit `be83d79`).

@@ -149,14 +149,14 @@ Tài khoản mẫu: `admin / admin123` và `customer / customer123`.
 
 ## Chạy ứng dụng sau tích hợp
 
-- Mở ứng dụng → Login; Admin (`admin/admin123`) mở quản lý trái cây, đơn hàng và Showcase CSDL.
+- Mở ứng dụng → Login; Admin (`admin/admin123`) mở quản lý trái cây và đơn hàng.
 - Customer (`customer/customer123`) mở mua sắm, hồ sơ và lịch sử đơn; Account.id được tra sang Customer.id qua database chung.
-- Tất cả module nghiệp vụ dùng `fruit_shop.db`. Showcase dùng `fruit_shop_showcase.db` riêng, có thể DROP/Reset dữ liệu mẫu.
+- Tất cả module nghiệp vụ dùng `fruit_shop.db`.
 - Handoff: [Auth](docs/AUTH.md), [Admin](ADMIN_FRUIT.md), [Customer shopping](HANDOFF_customer-shopping.md). Order/Profile dùng repository core và được nối từ trang theo vai trò.
 - Build và unit test: `./gradlew :app:assembleDebug :app:testDebugUnitTest`.
 - Kiểm thử Android trên emulator/máy thật: `./gradlew :app:connectedDebugAndroidTest`.
 
-Kết quả kiểm tra sau merge (23/10/2026): build debug thành công; 16 unit test đạt; 29/29 instrumented test đạt trên Pixel 9 Pro emulator, Android 15. Bộ test bao phủ database/repository, quy tắc nghiệp vụ, auth/session/navigation và smoke test showcase; chưa thay thế kiểm tra thủ công toàn bộ giao diện.
+Kết quả kiểm tra trước khi gỡ màn demo CSDL (23/10/2026): build debug thành công; 16 unit test đạt; 29/29 instrumented test đạt trên Pixel 9 Pro emulator, Android 15. Sau khi gỡ màn demo và 2 test dành riêng cho demo, còn 27 instrumented test; chưa chạy lại bộ test cho thay đổi này. Các test còn lại bao phủ database/repository, quy tắc nghiệp vụ và auth/session/navigation; chưa thay thế kiểm tra thủ công toàn bộ giao diện.
 
 
 ### Rà soát phần core và tester của Nam
