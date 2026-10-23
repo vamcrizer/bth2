@@ -67,3 +67,11 @@ Tiêu chí đánh giá dựa trên tốc độ và thời gian hoàn thành (cà
    - `feature/order-management` (Trương Gia Bảo)
 2. Sau khi hoàn thành và tự kiểm thử (Unit test / UI test), tạo Pull Request (PR) về nhánh `main`.
 3. Nhóm trưởng review và merge vào `main`.
+
+---
+
+## 🔐 Module Auth & Session — Lê Duy Anh
+
+Đăng nhập, đăng ký Customer, đăng xuất, lưu phiên SharedPreferences và điều hướng Admin/Customer nằm trong package `com.cie.bth2.auth`. Xem [hướng dẫn tích hợp và kiểm thử](docs/AUTH.md).
+
+Tài khoản mẫu: `admin / admin123` và `customer / customer123`.
