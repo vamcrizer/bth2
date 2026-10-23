@@ -11,7 +11,7 @@ import com.cie.bth2.R
 import com.cie.bth2.data.Fruit
 
 /** Chi tiết trái cây + chọn số lượng + đặt hàng. Khoá đặt hàng nếu hết hạn / hết hàng. */
-class CustomerFruitDetailActivity : AppCompatActivity() {
+class CustomerFruitDetailActivity : com.cie.bth2.ui.common.BackActivity() {
 
     private lateinit var repo: CustomerShopRepository
     private lateinit var fruit: Fruit
@@ -53,6 +53,7 @@ class CustomerFruitDetailActivity : AppCompatActivity() {
             return false
         }
         fruit = found
+        findViewById<android.widget.ImageView>(R.id.fruitPhoto).setImageResource(com.cie.bth2.ui.common.FruitImages.forFruit(fruit.name, fruit.category))
         amount = amount.coerceIn(1, maxOf(1, fruit.quantity))
         title = fruit.name
         findViewById<TextView>(R.id.tvName).text = fruit.name

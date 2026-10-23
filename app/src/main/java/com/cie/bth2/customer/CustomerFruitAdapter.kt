@@ -31,6 +31,7 @@ class CustomerFruitAdapter(
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val fruit = items[position]
         val ctx = holder.itemView.context
+        holder.photo.setImageResource(com.cie.bth2.ui.common.FruitImages.forFruit(fruit.name, fruit.category))
         holder.name.text = fruit.name
         holder.category.text = fruit.category
         holder.price.text = formatVnd(fruit.price)
@@ -54,6 +55,7 @@ class CustomerFruitAdapter(
     }
 
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
+        val photo: android.widget.ImageView = view.findViewById(R.id.fruitPhoto)
         val name: TextView = view.findViewById(R.id.tvName)
         val category: TextView = view.findViewById(R.id.tvCategory)
         val price: TextView = view.findViewById(R.id.tvPrice)

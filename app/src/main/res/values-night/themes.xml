@@ -1,16 +1,23 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
     <style name="Theme.Bth2" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/shop_green</item>
+        <item name="colorPrimaryVariant">@color/shop_green</item>
+        <item name="colorOnPrimary">@color/shop_surface</item>
+        <item name="colorSecondary">@color/shop_green</item>
+        <item name="colorSurface">@color/shop_surface</item>
+        <item name="colorOnSurface">@color/shop_ink</item>
+        <item name="android:colorBackground">@color/shop_bg</item>
+        <item name="android:windowBackground">@color/shop_bg</item>
+        <item name="android:textColorPrimary">@color/shop_ink</item>
+        <item name="android:textColorSecondary">@color/shop_muted</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:statusBarColor">@color/shop_bg</item>
+        <item name="android:navigationBarColor">@color/shop_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="materialButtonStyle">@style/ShopButton</item>
+        <item name="textInputStyle">@style/ShopInput</item>
+        <item name="actionBarStyle">@style/ShopActionBar</item>
+        <item name="actionBarTheme">@style/ShopActionBarOverlay</item>
     </style>
 </resources>

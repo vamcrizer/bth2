@@ -39,6 +39,7 @@ class DatabaseDemoActivity : Activity() {
             setPadding(dp(20), dp(20), dp(20), dp(16))
             setBackgroundColor(0xFFF5F7FA.toInt())
         }
+        root.addView(actionButton("‹  " + getString(com.cie.bth2.R.string.navigate_back)) { finish() })
         root.addView(TextView(this).apply {
             text = "DATABASE SHOWCASE"
             textSize = 24f

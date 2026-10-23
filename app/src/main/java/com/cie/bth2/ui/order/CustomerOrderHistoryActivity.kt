@@ -14,7 +14,7 @@ import com.cie.bth2.data.DatabaseHelper
 import com.cie.bth2.data.OrderRepository
 
 /** Order history of the signed-in customer. Start with [newIntent]. */
-class CustomerOrderHistoryActivity : AppCompatActivity() {
+class CustomerOrderHistoryActivity : com.cie.bth2.ui.common.BackActivity() {
 
     private lateinit var orderRepository: OrderRepository
     private lateinit var adapter: OrderAdapter

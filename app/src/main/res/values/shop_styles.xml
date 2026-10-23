@@ -1,0 +1,7 @@
+<resources>
+<style name="ShopButton" parent="Widget.MaterialComponents.Button"><item name="cornerRadius">16dp</item><item name="android:minHeight">56dp</item><item name="android:textAllCaps">false</item><item name="android:textSize">16sp</item><item name="android:fontFamily">sans-serif-medium</item></style>
+<style name="ShopInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox"><item name="boxCornerRadiusTopStart">16dp</item><item name="boxCornerRadiusTopEnd">16dp</item><item name="boxCornerRadiusBottomStart">16dp</item><item name="boxCornerRadiusBottomEnd">16dp</item><item name="boxBackgroundColor">@color/shop_surface</item></style>
+<style name="ShopActionBar" parent="Widget.AppCompat.ActionBar.Solid"><item name="background">@color/shop_bg</item><item name="titleTextStyle">@style/ShopActionTitle</item><item name="elevation">0dp</item></style>
+<style name="ShopActionTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title"><item name="android:textColor">@color/shop_ink</item><item name="android:fontFamily">sans-serif-medium</item><item name="android:textSize">18sp</item></style>
+<style name="ShopActionBarOverlay" parent="ThemeOverlay.AppCompat"><item name="colorControlNormal">@color/shop_ink</item><item name="android:textColorPrimary">@color/shop_ink</item></style>
+</resources>

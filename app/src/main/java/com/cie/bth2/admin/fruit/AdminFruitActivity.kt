@@ -70,6 +70,12 @@ class AdminFruitActivity : AppCompatActivity(), FruitPresenter.View {
             insets
         }
         val header = column().apply { setPadding(dp(20), dp(24), dp(20), dp(8)) }
+        header.addView(MaterialButton(this).apply {
+            text = "‹  " + getString(R.string.navigate_back)
+            contentDescription = getString(R.string.navigate_back)
+            isAllCaps = false
+            setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        }, LinearLayout.LayoutParams(-2, dp(48)))
         header.addView(label("FRUIT SHOP  /  ADMIN", 12, R.color.admin_primary, true).apply { letterSpacing = .12f })
         header.addView(label("Kho trái cây", 30, bold = true).apply { setPadding(0, dp(8), 0, dp(4)) })
         header.addView(label("Quản lý hàng tươi, theo dõi từng ngày.", 14, R.color.admin_muted))
@@ -393,10 +399,17 @@ class AdminFruitActivity : AppCompatActivity(), FruitPresenter.View {
                 card.addView(details)
                 card.addView(label("", 13).apply { setPadding(dp(10), dp(7), dp(10), dp(7)) },
                     LinearLayout.LayoutParams(-1, -2).apply { topMargin = dp(14) })
+                card.addView(ImageView(context).apply {
+                    scaleType = ImageView.ScaleType.CENTER_CROP
+                    contentDescription = getString(R.string.fruit_photo_description)
+                    background = rounded(getColor(R.color.admin_surface), 12)
+                    clipToOutline = true
+                }, LinearLayout.LayoutParams(-1, dp(140)).apply { topMargin = dp(12) })
                 addView(card)
             }
             val fruit = shown[position]
             val card = row.getChildAt(0) as LinearLayout
+            (card.getChildAt(4) as ImageView).setImageResource(com.cie.bth2.ui.common.FruitImages.forFruit(fruit.name, fruit.category))
             ((card.getChildAt(0) as LinearLayout).getChildAt(0) as TextView).text = fruit.name
             (card.getChildAt(1) as TextView).text = fruit.category
             val details = card.getChildAt(2) as LinearLayout

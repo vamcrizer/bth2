@@ -1,0 +1,11 @@
+<resources>
+    <string name="shop_login_heading">Chào bạn, ghé vườn nhé!</string>
+    <string name="shop_hero_title">Tươi ngon mỗi ngày.</string>
+    <string name="fruit_photo_description">Ảnh minh họa trái cây</string>
+    <string name="shop_profile_heading">Một chút về bạn</string>
+    <string name="shop_catalog_eyebrow">FRUIT SHOP / BỘ SƯU TẬP</string>
+    <string name="shop_catalog_title">Chọn vị tươi, cho hôm nay.</string>
+    <string name="shop_catalog_subtitle">Khám phá trái cây và chọn món bạn thích.</string>
+    <string name="shop_photo_note">Ảnh minh họa theo loại trái cây</string>
+    <string name="navigate_back">Quay lại</string>
+</resources>

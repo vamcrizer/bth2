@@ -13,6 +13,7 @@ abstract class AuthActivity : AppCompatActivity(), AuthPresenter.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         presenter = AuthPresenter(AuthRepository(applicationContext), this)
     }
 

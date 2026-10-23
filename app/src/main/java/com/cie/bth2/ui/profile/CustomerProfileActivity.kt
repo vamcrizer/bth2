@@ -15,7 +15,7 @@ import com.cie.bth2.data.DatabaseHelper
 import com.cie.bth2.ui.order.CustomerOrderHistoryActivity
 
 /** View and edit the signed-in customer's profile. Start with [newIntent]. */
-class CustomerProfileActivity : AppCompatActivity() {
+class CustomerProfileActivity : com.cie.bth2.ui.common.BackActivity() {
 
     private lateinit var customerRepository: CustomerRepository
     private lateinit var customer: CustomerRepository.Customer

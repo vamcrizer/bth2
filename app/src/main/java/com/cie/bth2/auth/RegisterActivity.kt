@@ -12,6 +12,7 @@ class RegisterActivity : AuthActivity() {
         super.onCreate(savedInstanceState)
         title = getString(R.string.register_title)
         showLayout(R.layout.activity_register)
+        findViewById<android.view.View>(R.id.navigate_back).setOnClickListener { onBackPressedDispatcher.onBackPressed() }
         findViewById<View>(R.id.alternate).setOnClickListener { finish() }
         findViewById<View>(R.id.submit).setOnClickListener { register() }
     }

@@ -15,7 +15,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
 /** Màn hình Customer: danh sách trái cây, tìm kiếm, lọc danh mục. */
-class CustomerFruitListActivity : AppCompatActivity() {
+class CustomerFruitListActivity : com.cie.bth2.ui.common.BackActivity() {
 
     private lateinit var repo: CustomerShopRepository
     private lateinit var adapter: CustomerFruitAdapter
@@ -43,7 +43,8 @@ class CustomerFruitListActivity : AppCompatActivity() {
             )
         }
         findViewById<RecyclerView>(R.id.rvFruits).apply {
-            layoutManager = LinearLayoutManager(this@CustomerFruitListActivity)
+            layoutManager = androidx.recyclerview.widget.GridLayoutManager(this@CustomerFruitListActivity,
+                if (resources.configuration.screenWidthDp >= 360 && resources.configuration.fontScale < 1.3f) 2 else 1)
             adapter = this@CustomerFruitListActivity.adapter
         }
 

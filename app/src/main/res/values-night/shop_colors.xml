@@ -1,0 +1,10 @@
+<resources>
+    <color name="shop_bg">#101B15</color>
+    <color name="shop_surface">#1B2A21</color>
+    <color name="shop_ink">#EDF3E9</color>
+    <color name="shop_muted">#B1C1B3</color>
+    <color name="shop_green">#91CFA4</color>
+    <color name="shop_soft">#293C2D</color>
+    <color name="shop_border">#3B5140</color>
+    <color name="shop_accent">#EAAA54</color>
+</resources>

@@ -1,103 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/cs_price"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvQuantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:id="@+id/tvExpiry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp" />
-
-        <TextView
-            android:id="@+id/tvBlocked"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@color/cs_badge_bg"
-            android:padding="10dp"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:visibility="gone" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnMinus"
-                android:layout_width="56dp"
-                android:layout_height="wrap_content"
-                android:text="−" />
-
-            <TextView
-                android:id="@+id/tvAmount"
-                android:layout_width="56dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/btnPlus"
-                android:layout_width="56dp"
-                android:layout_height="wrap_content"
-                android:text="+" />
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/shop_bg">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="240dp" android:layout_marginBottom="24dp" app:cardCornerRadius="24dp" app:cardElevation="0dp">
+            <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/fruit_hero" android:scaleType="centerCrop" android:contentDescription="@string/fruit_photo_description" android:id="@+id/fruitPhoto" />
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <TextView android:id="@+id/tvName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="32sp" android:textStyle="bold" android:fontFamily="serif" />
+        <TextView android:id="@+id/tvCategory" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <TextView android:id="@+id/tvPrice" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textColor="@color/shop_green" android:textSize="26sp" android:textStyle="bold" />
+        <TextView android:id="@+id/tvQuantity" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" />
+        <TextView android:id="@+id/tvExpiry" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <TextView android:id="@+id/tvDescription" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:lineSpacingExtra="4dp" android:paddingVertical="12dp" />
+        <TextView android:id="@+id/tvBlocked" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:background="@color/cs_badge_bg" android:padding="10dp" android:textColor="@android:color/white" android:textStyle="bold" android:visibility="gone" />
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:gravity="center_vertical" android:orientation="horizontal">
+            <Button android:id="@+id/btnMinus" android:layout_width="56dp" android:layout_height="wrap_content" android:text="−" />
+            <TextView android:id="@+id/tvAmount" android:layout_width="56dp" android:layout_height="wrap_content" android:gravity="center" android:textSize="18sp" />
+            <Button android:id="@+id/btnPlus" android:layout_width="56dp" android:layout_height="wrap_content" android:text="+" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvTotal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnOrder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/cs_place_order" />
+        <TextView android:id="@+id/tvTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:textSize="18sp" android:textStyle="bold" />
+        <Button android:id="@+id/btnOrder" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="@string/cs_place_order" />
     </LinearLayout>
 </ScrollView>

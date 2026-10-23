@@ -15,7 +15,7 @@ import com.cie.bth2.data.OrderRepository
 import com.google.android.material.chip.ChipGroup
 
 /** Admin screen: order statistics, status filter and status updates. */
-class AdminOrderManagementActivity : AppCompatActivity() {
+class AdminOrderManagementActivity : com.cie.bth2.ui.common.BackActivity() {
 
     private lateinit var orderRepository: OrderRepository
     private lateinit var adapter: OrderAdapter
