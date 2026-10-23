@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="order_status_pending">#FFF57C00</color>
+    <color name="order_status_confirmed">#FF1976D2</color>
+    <color name="order_status_completed">#FF388E3C</color>
+</resources>
