@@ -99,12 +99,9 @@ class FruitRepository(private val databaseHelper: DatabaseHelper) {
     private fun validate(fruit: Fruit) {
         require(fruit.name.isNotBlank()) { "Fruit name must not be blank" }
         require(fruit.category.isNotBlank()) { "Fruit category must not be blank" }
-        require(fruit.price >= 0) { "Price cannot be negative" }
+        require(fruit.price.isFinite() && fruit.price >= 0) { "Price cannot be negative" }
         require(fruit.quantity >= 0) { "Quantity cannot be negative" }
-        require(ISO_DATE.matches(fruit.expiryDate)) { "Expiry date must use yyyy-MM-dd" }
+        require(DateValidation.isValid(fruit.expiryDate, "yyyy-MM-dd")) { "Expiry date must use yyyy-MM-dd" }
     }
 
-    companion object {
-        private val ISO_DATE = Regex("\\d{4}-\\d{2}-\\d{2}")
-    }
 }

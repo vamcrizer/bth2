@@ -7,9 +7,9 @@ import com.cie.bth2.data.Fruit
 import com.cie.bth2.data.OrderRepository
 
 /** Customer-facing adapter backed by the shared database core. */
-class CustomerShopRepository(context: Context) {
+class CustomerShopRepository(context: Context, databaseName: String = DatabaseHelper.DATABASE_NAME) {
 
-    private val database = DatabaseHelper(context.applicationContext)
+    private val database = DatabaseHelper(context.applicationContext, databaseName)
     private val fruits = com.cie.bth2.data.FruitRepository(database)
     private val customers = CustomerRepository(database)
     private val orders = OrderRepository(database)

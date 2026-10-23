@@ -94,4 +94,35 @@ class AuthNavigationTest {
         }
     }
 
+
+    @Test fun customerHomeOpensShopProfileAndHistory() {
+        SessionManager(context).save(AuthRepository(context).login("customer", "customer123")!!)
+        ActivityScenario.launch(CustomerHomeActivity::class.java).use {
+            awaitText(context.getString(R.string.customer_description))
+            onView(withId(R.id.open_customer_shop)).perform(scrollTo(), click())
+            onView(withId(R.id.etSearch)).check(matches(isDisplayed()))
+            pressBackUnconditionally()
+            awaitText(context.getString(R.string.customer_description))
+            onView(withId(R.id.open_customer_profile)).perform(scrollTo(), click())
+            onView(withId(R.id.inputFullName)).check(matches(isDisplayed()))
+            onView(withId(R.id.buttonOrderHistory)).perform(scrollTo(), click())
+            onView(withId(R.id.recyclerOrders)).check(matches(isDisplayed()))
+            pressBackUnconditionally()
+            pressBackUnconditionally()
+        }
+    }
+
+    @Test fun adminHomeOpensStockAndOrderManagement() {
+        SessionManager(context).save(AuthRepository(context).login("admin", "admin123")!!)
+        ActivityScenario.launch(AdminHomeActivity::class.java).use {
+            awaitText(context.getString(R.string.admin_description))
+            onView(withId(R.id.open_admin_fruit)).perform(scrollTo(), click())
+            awaitText("Kho trái cây")
+            pressBackUnconditionally()
+            awaitText(context.getString(R.string.admin_description))
+            onView(withId(R.id.open_admin_orders)).perform(scrollTo(), click())
+            onView(withId(R.id.textStatTotal)).check(matches(isDisplayed()))
+            pressBackUnconditionally()
+        }
+    }
 }

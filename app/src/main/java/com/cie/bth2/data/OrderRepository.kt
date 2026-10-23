@@ -32,8 +32,8 @@ class OrderRepository(private val databaseHelper: DatabaseHelper) {
     /** Creates a pending order and returns its ID. */
     fun create(customerId: Long, totalAmount: Double, orderDate: String = today()): Long {
         require(customerId > 0) { "Customer ID must be positive" }
-        require(totalAmount >= 0) { "Order total cannot be negative" }
-        require(ISO_DATE_TIME.matches(orderDate)) { "Order date must use yyyy-MM-dd HH:mm:ss" }
+        require(totalAmount.isFinite() && totalAmount >= 0) { "Order total cannot be negative" }
+        require(DateValidation.isValid(orderDate, DATE_FORMAT)) { "Order date must use yyyy-MM-dd HH:mm:ss" }
 
         val values = ContentValues().apply {
             put(DatabaseHelper.COL_CUSTOMER_ID, customerId)
@@ -58,7 +58,7 @@ class OrderRepository(private val databaseHelper: DatabaseHelper) {
         require(items.all { it.fruitId > 0 && it.quantity > 0 }) {
             "Fruit IDs and quantities must be positive"
         }
-        require(ISO_DATE_TIME.matches(orderDate)) { "Order date must use yyyy-MM-dd HH:mm:ss" }
+        require(DateValidation.isValid(orderDate, DATE_FORMAT)) { "Order date must use yyyy-MM-dd HH:mm:ss" }
 
         val db = databaseHelper.writableDatabase
         db.beginTransaction()
@@ -72,7 +72,9 @@ class OrderRepository(private val databaseHelper: DatabaseHelper) {
             require(customerExists) { "Customer does not exist" }
 
             // Merge duplicate fruit IDs before checking and decrementing stock.
-            val quantities = items.groupBy { it.fruitId }.mapValues { (_, rows) -> rows.sumOf { it.quantity } }
+            val quantities = items.groupBy { it.fruitId }.mapValues { (_, rows) -> rows.sumOf { it.quantity.toLong() } }
+            require(quantities.values.all { it <= Int.MAX_VALUE }) { "Requested quantity is too large" }
+            val purchaseDate = today().substring(0, 10)
             var totalAmount = 0.0
             quantities.forEach { (fruitId, quantity) ->
                 val fruit = db.query(
@@ -87,8 +89,10 @@ class OrderRepository(private val databaseHelper: DatabaseHelper) {
                 } ?: throw IllegalArgumentException("Fruit $fruitId does not exist")
 
                 require(fruit.second >= quantity) { "Insufficient stock for fruit $fruitId" }
-                require(fruit.third >= orderDate.substring(0, 10)) { "Fruit $fruitId is expired" }
+                require(DateValidation.isValid(fruit.third, "yyyy-MM-dd") && fruit.third >= purchaseDate) { "Fruit $fruitId is expired" }
+                require(fruit.first.isFinite() && fruit.first >= 0) { "Invalid fruit price" }
                 totalAmount += fruit.first * quantity
+                require(totalAmount.isFinite()) { "Order total is too large" }
             }
 
             quantities.forEach { (fruitId, quantity) ->
@@ -172,7 +176,6 @@ class OrderRepository(private val databaseHelper: DatabaseHelper) {
     private fun today(): String = SimpleDateFormat(DATE_FORMAT, Locale.US).format(Date())
     companion object {
         private const val DATE_FORMAT = "yyyy-MM-dd HH:mm:ss"
-        private val ISO_DATE_TIME = Regex("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")
         private val ALLOWED_STATUSES = setOf(
             DatabaseHelper.STATUS_PENDING,
             DatabaseHelper.STATUS_CONFIRMED,

@@ -180,4 +180,91 @@ class DatabaseRepositoryInstrumentedTest {
         database.resetDemoDatabase()
         assertEquals(3, FruitRepository(database).getAll().size)
     }
+
+    @Test
+    fun rejectsInvalidDatesAndNonFinitePrices() {
+        val fruits = FruitRepository(database)
+        val fruit = fruits.getAll().first()
+        listOf("2026-02-31", "2026-13-01", "2026-1-01").forEach { date ->
+            assertThrows(IllegalArgumentException::class.java) { fruits.update(fruit.copy(expiryDate = date)) }
+        }
+        listOf(Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY).forEach { price ->
+            assertThrows(IllegalArgumentException::class.java) { fruits.update(fruit.copy(price = price)) }
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            OrderRepository(database).create(1, 100.0, "2026-02-31 25:00:00")
+        }
+        assertEquals(fruit, fruits.getById(fruit.id))
+    }
+
+    @Test
+    fun backdatingOrderCannotBuyExpiredFruit() {
+        val fruits = FruitRepository(database)
+        val fruit = fruits.getAll().first()
+        fruits.update(fruit.copy(expiryDate = "2000-01-01"))
+        assertThrows(IllegalArgumentException::class.java) {
+            OrderRepository(database).placeOrder(1,
+                listOf(OrderRepository.OrderItem(fruit.id, 1)), "1999-01-01 00:00:00")
+        }
+        assertEquals(fruit.quantity, fruits.getById(fruit.id)!!.quantity)
+        assertTrue(OrderRepository(database).getAll().isEmpty())
+    }
+
+    @Test
+    fun duplicateQuantitiesCannotOverflowAndIncreaseStock() {
+        val fruit = FruitRepository(database).getAll().first()
+        assertThrows(IllegalArgumentException::class.java) {
+            OrderRepository(database).placeOrder(1, listOf(
+                OrderRepository.OrderItem(fruit.id, Int.MAX_VALUE),
+                OrderRepository.OrderItem(fruit.id, Int.MAX_VALUE)))
+        }
+        assertEquals(fruit.quantity, FruitRepository(database).getById(fruit.id)!!.quantity)
+    }
+
+    @Test
+    fun insertFailureAfterStockUpdateRollsBackAllItems() {
+        val before = FruitRepository(database).getAll()
+        // Trigger only rejects the order once the first fruit has actually been decremented.
+        val first = before.first()
+        database.writableDatabase.execSQL("""
+            CREATE TRIGGER reject_order AFTER INSERT ON "Order"
+            WHEN (SELECT quantity FROM Fruit WHERE id = ${first.id}) = ${first.quantity - 1}
+            BEGIN SELECT RAISE(ABORT, 'simulated order storage failure'); END
+        """.trimIndent())
+        try {
+            assertThrows(android.database.sqlite.SQLiteConstraintException::class.java) {
+                OrderRepository(database).placeOrder(1, before.map { OrderRepository.OrderItem(it.id, 1) })
+            }
+            assertEquals(before, FruitRepository(database).getAll())
+            assertTrue(OrderRepository(database).getAll().isEmpty())
+        } finally {
+            database.writableDatabase.execSQL("DROP TRIGGER reject_order")
+        }
+    }
+
+    @Test
+    fun adminCatalogCustomerPurchaseAndOrderHistoryShareDatabase() {
+        val admin = com.cie.bth2.admin.fruit.SqliteFruitRepository(context, "repository_tests.db")
+        val shop = com.cie.bth2.customer.CustomerShopRepository(context, "repository_tests.db")
+        try {
+            admin.save(com.cie.bth2.admin.fruit.Fruit(name = "Integration fruit", category = "Test",
+                price = 15000.0, quantity = 7, expiryDate = "2099-12-31", description = ""))
+            val fruit = shop.searchFruits("Integration fruit", "Test", false).single()
+            val customer = CustomerRepository(database).getByAccountId(2)!!
+            val result = shop.placeOrder(customer.id, fruit.id, 2)
+                as com.cie.bth2.customer.CustomerShopRepository.PlaceOrderResult.Success
+            assertEquals(30000.0, result.total, 0.001)
+            assertEquals(5, admin.all().single { it.id == fruit.id }.quantity)
+            val orders = OrderRepository(database)
+            assertTrue(orders.updateStatus(result.orderId, DatabaseHelper.STATUS_CONFIRMED))
+            assertTrue(orders.updateStatus(result.orderId, DatabaseHelper.STATUS_COMPLETED))
+            val history = orders.getForCustomer(customer.id).single()
+            assertEquals(DatabaseHelper.STATUS_COMPLETED, history.status)
+            assertEquals(result.orderId, history.id)
+            assertEquals(30000.0, com.cie.bth2.ui.order.OrderStats.from(listOf(history)).completedRevenue, 0.001)
+        } finally {
+            shop.close()
+            admin.close()
+        }
+    }
 }

@@ -156,4 +156,14 @@ Tài khoản mẫu: `admin / admin123` và `customer / customer123`.
 - Build và unit test: `./gradlew :app:assembleDebug :app:testDebugUnitTest`.
 - Kiểm thử Android trên emulator/máy thật: `./gradlew :app:connectedDebugAndroidTest`.
 
-Kết quả kiểm tra sau merge (23/10/2026): build debug thành công; 16 unit test đạt; 22/22 instrumented test đạt trên Pixel 9 Pro emulator, Android 15. Bộ test bao phủ database/repository, quy tắc nghiệp vụ, auth/session/navigation và smoke test showcase; chưa thay thế kiểm tra thủ công toàn bộ giao diện.
+Kết quả kiểm tra sau merge (23/10/2026): build debug thành công; 16 unit test đạt; 29/29 instrumented test đạt trên Pixel 9 Pro emulator, Android 15. Bộ test bao phủ database/repository, quy tắc nghiệp vụ, auth/session/navigation và smoke test showcase; chưa thay thế kiểm tra thủ công toàn bộ giao diện.
+
+
+### Rà soát phần core và tester của Nam
+
+- Repository kiểm tra ngày có thật, giá/tổng tiền hữu hạn và số lượng không tràn khi gộp mặt hàng.
+- Kiểm tra hạn dùng dựa trên ngày hiện tại của thiết bị; truyền ngày đơn quá khứ không cho phép mua hàng đã hết hạn.
+- Test gây lỗi ghi Order sau khi đã trừ kho xác nhận toàn bộ giao dịch rollback.
+- Test tích hợp repository: Admin thêm hàng → Customer mua → tồn kho giảm → Admin xác nhận/hoàn thành → lịch sử và doanh thu khớp.
+- Test giao diện mở mua sắm, hồ sơ, lịch sử, kho Admin và quản lý đơn từ trang theo vai trò. Chưa kiểm thử toàn bộ thao tác nghiệp vụ bằng UI tự động.
+- Schema hiện là phiên bản 1, chưa có chuyển đổi schema giữa các phiên bản. Khi thay đổi schema cần bổ sung migration bảo toàn dữ liệu trong `onUpgrade` và test nâng cấp tương ứng.
