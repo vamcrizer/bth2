@@ -1,3 +1,31 @@
 <resources>
-    <string name="app_name">bth2</string>
+    <string name="app_name">Fruit Shop</string>
+    <string name="login_title">Đăng nhập</string>
+    <string name="register_title">Đăng ký</string>
+    <string name="login_subtitle">Đăng nhập để tiếp tục sử dụng cửa hàng trái cây.</string>
+    <string name="register_subtitle">Tạo tài khoản khách hàng mới.</string>
+    <string name="username">Tên đăng nhập</string>
+    <string name="password">Mật khẩu</string>
+    <string name="confirm_password">Nhập lại mật khẩu</string>
+    <string name="fullname">Họ và tên</string>
+    <string name="phone">Số điện thoại</string>
+    <string name="email">Email</string>
+    <string name="back_login">Quay lại đăng nhập</string>
+    <string name="required">Vui lòng nhập thông tin này</string>
+    <string name="invalid_credentials">Tên đăng nhập hoặc mật khẩu không đúng.</string>
+    <string name="username_taken">Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.</string>
+    <string name="auth_error">Không thể xử lý yêu cầu. Vui lòng thử lại.</string>
+    <string name="invalid_username">Dùng 3–30 ký tự chữ không dấu, số, dấu chấm hoặc gạch dưới</string>
+    <string name="short_password">Mật khẩu cần ít nhất 6 ký tự</string>
+    <string name="password_mismatch">Mật khẩu nhập lại không khớp</string>
+    <string name="invalid_phone">Số điện thoại không hợp lệ</string>
+    <string name="invalid_email">Email không hợp lệ</string>
+    <string name="admin_title">Trang quản trị</string>
+    <string name="customer_title">Trang khách hàng</string>
+    <string name="welcome">Xin chào, %1$s</string>
+    <string name="admin_description">Bạn đã đăng nhập với vai trò Quản trị viên.</string>
+    <string name="customer_description">Bạn đã đăng nhập với vai trò Khách hàng.</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="logout_confirm">Bạn muốn kết thúc phiên đăng nhập này?</string>
+    <string name="cancel">Hủy</string>
 </resources>

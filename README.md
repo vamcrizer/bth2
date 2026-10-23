@@ -129,3 +129,11 @@ val orderId = orders.placeOrder(
 2. Khi cần thêm cột/bảng hoặc đổi hàm repository, mở PR kèm mô tả API/schema trước để các nhánh không lệch hợp đồng.
 3. PR ghi rõ màn hình/nghiệp vụ hoàn thành, cách chạy và kết quả build/kiểm tra; không commit `local.properties`, `.gradle/` hoặc file cấu hình cá nhân.
 4. Merge theo thứ tự nền tảng dữ liệu → auth và màn hình tính năng → tích hợp cuối; xử lý xung đột qua PR, không force-push lên `main`.
+
+---
+
+## 🔐 Module Auth & Session — Lê Duy Anh
+
+Đăng nhập, đăng ký Customer, đăng xuất, lưu phiên SharedPreferences và điều hướng Admin/Customer nằm trong package `com.cie.bth2.auth`. Xem [hướng dẫn tích hợp và kiểm thử](docs/AUTH.md).
+
+Tài khoản mẫu: `admin / admin123` và `customer / customer123`.
